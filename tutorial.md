@@ -18,24 +18,13 @@ The key point here is that you do not *need* a vector database or lots of toolin
 ### Download dataset into project directory
 We're going to work with a simple dataset that includes the title, ingredients, and instructions for 5,000 recipes. Grab the 5k-recipes.db file from this [recipe dataset repository](https://github.com/josephrmartinez/recipe-dataset).
 
-Make a new project directory folder and move the 5k-recipes.db database file inside of this directory.
-
-
-### Create and activate virtual environment
-Navigate to your project directory and create and activate a virtual environment running python 3.11. Datasette requires Python 3.7 or higher.
-
-```
-python3.11 -m venv venv
-source venv/bin/activate  # On Windows, use `venv\Scripts\activate`
-```
 ### Install datasette
 It's generally a good practice to install Python packages within the virtual environment to keep dependencies isolated. This ensures that your project's dependencies won't interfere with other projects or the global Python environment. Use pip to install Datasette in your current virtual environment:
 
 ```
 pip install datasette
+datasette install datasette-codespaces
 ```
-
-Or follow [these instructions](https://docs.datasette.io/en/stable/installation.html) to install Datasette globally on your machine.
 
 ### Run Datasette
 To launch the Datasette server with the '5k-recipes' database, ensure you are in the project directory with the terminal open and your virtual environment activated. Run the following command:
@@ -123,7 +112,7 @@ Create a metadata.json file in your project folder with the following content:
 ```
 As we develop our custom query, we will populate the 'queries' and 'plugins' sections within the metadata file.
 
-Close the terminal running your Datasette server, then restart it with the following command to apply the metadata and relaunch the server:
+Cancel your Datasette server, then restart it with the following command to apply the metadata and relaunch the server:
 
 ```
 datasette 5k-recipes.db --metadata metadata.json
@@ -138,7 +127,6 @@ First, we need to calculate an embedding on the user's query.
 Then, we need to perform a vector similarity calculation between the embedding of the user's query and all of the embeddings in our recipe_embeddings table.
 
 This is one of the most exciting parts of working with Datasette. We can create or install plugins that allow us to utilize powerful Python libraries in custom SQL queries that go far beyond what many people think of as possible with SQL. 
-
 
 ### Function to calculate embedding on user's query
 
@@ -262,7 +250,7 @@ Update your metadata.json file to the following:
   }
 ```
 
-Close the terminal running your Datasette server, then restart it with the following command to apply the updated metadata and relaunch the server:
+Shut down your Datasette server, then restart it with the following command to apply the updated metadata and relaunch the server:
 
 ```
 datasette 5k-recipes.db --metadata metadata.json
